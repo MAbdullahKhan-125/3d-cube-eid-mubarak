@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    background-image: url("./assets/Background.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+/* Container */
+#Page{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    perspective: 1000px;
+}
+
+/* Cube */
+#cube{
+    height: 150px;
+    width: 150px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 5s infinite linear;
+    cursor: pointer;
+}
+
+/* Rotation */
+@keyframes rotateCube {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* Faces */
+.face{
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    border: 1px solid white;
+    background-size: cover;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+/* 3D positions */
+.front  { transform: rotateY(0deg) translateZ(75px); }
+.back   { transform: rotateY(180deg) translateZ(75px); }
+.left   { transform: rotateY(-90deg) translateZ(75px); }
+.right  { transform: rotateY(90deg) translateZ(75px); }
+.top    { transform: rotateX(90deg) translateZ(75px); }
+.bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+/* Same image */
+.front, .back, .left, .right, .top, .bottom{
+    background-image: url("./assets/Image.jpeg");
+}
+
+/* Message */
+#message{
+    margin-top: 45px;
+    font-size: 36px;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0.2);
+    text-align: center;
+
+    color: white;
+
+    transition: all 1s ease;
+}
+
+/* Gradient animation */
+@keyframes gradientMove {
+    0% { background-position: 0%; }
+    100% { background-position: 200%; }
+}
+
+/* Show message */
+#cube.active ~ #message{
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* 🔥 Better break animation (fixed) */
+#cube.active .front  { transform: rotateY(0deg) translateZ(200px); opacity: 0; }
+#cube.active .back   { transform: rotateY(180deg) translateZ(200px); opacity: 0; }
+#cube.active .left   { transform: rotateY(-90deg) translateZ(200px); opacity: 0; }
+#cube.active .right  { transform: rotateY(90deg) translateZ(200px); opacity: 0; }
+#cube.active .top    { transform: rotateX(90deg) translateZ(200px); opacity: 0; }
+#cube.active .bottom { transform: rotateX(-90deg) translateZ(200px); opacity: 0; }
